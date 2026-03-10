@@ -25,3 +25,4 @@ class TestimonialAdmin(admin.ModelAdmin):
     list_filter = ('is_approved', 'rating', 'created_at')
     list_editable = ('is_approved',)
     readonly_fields = ('created_at',)
+

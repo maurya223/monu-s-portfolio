@@ -23,17 +23,17 @@ class Feedback(models.Model):
     # this is required field
     message = models.TextField()
 
-# Testimonial form
+# Testimonial model
 class Testimonial(models.Model):
     name = models.CharField(max_length=100)
-    position = models.CharField(max_length=100, blank=True)
-    company = models.CharField(max_length=100, blank=True)
-    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)], default=5)
+    position = models.CharField(max_length=100, blank=True, default='')
+    company = models.CharField(max_length=100, blank=True, default='')
+    rating = models.IntegerField(default=5)
     message = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.name} - {self.company or 'Individual'}"
+        return f"{self.name} - {self.rating} stars"
 
    

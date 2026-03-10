@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-jebq&9qgt91-3r1+(fd&-0n)$jr+em_!*#fwyk#$i5q8+f&ubi'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-jebq&9qgt91-3r1+(fd&-0n)$jr+em_!*#fwyk#$i5q8+f&ubi')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".onrender.com"]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 
 # Application definition
@@ -106,9 +106,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
- # Use App Password, not normal password
+EMAIL_HOST_USER = 'mauryaharshit376@gmail.com'
+EMAIL_HOST_PASSWORD = 'sbhk xoph azzw krwy'  # Use App Password, not normal password
 
-
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 DEFAULT_TO_EMAIL = 'receiver_email@gmail.com'
 
 
@@ -133,7 +134,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / "statics",
 ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Add images directory to static files
+STATICFILES_DIRS.append(BASE_DIR / "statics" / "images")
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -141,14 +143,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media files (for user uploads)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
-
-SECURE_HSTS_SECONDS = 31536000
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-
-SECRET_KEY = "v9$z#n-no3u29orio_%c%uz-8*)shn^=-ep4#pz451ey-y^s)u"
-

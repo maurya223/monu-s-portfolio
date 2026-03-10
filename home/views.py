@@ -1,10 +1,11 @@
-
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
+from django.template.loader import get_template
 from .models import Contact, Feedback, Testimonial
+
 
 def home(request):
     if request.method == 'POST':
@@ -23,7 +24,7 @@ def home(request):
                     subject=subject,
                     message=message
                 )
-                contact.save()  # Explicit save()
+                contact.save()
 
                 # Send email
                 try:
@@ -53,7 +54,7 @@ def home(request):
                     email=email,
                     message=message
                 )
-                feedback.save()  # Explicit save()
+                feedback.save()
 
                 messages.success(request, 'Your feedback has been submitted successfully')
                 return redirect('home')
@@ -86,6 +87,7 @@ def home(request):
     
     return render(request, 'home.html', {'testimonials': testimonials})
 
+
 def contact_view(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -97,17 +99,18 @@ def contact_view(request):
 
         # Send email
         send_mail(
-            subject,                # subject from user
-            full_message,           # message body
-            email,                  # from user
-            ["mauryaharshit376@gmail.com"],    # recipient list
-            fail_silently=False
+            subject,
+            full_message,
+            email,
+            ["mauryaharshit376@gmail.com"],
+            fail_silently=False,
         )
 
         return HttpResponse('Thank you for your message!')
 
     # For GET request, render the form
     return render(request, 'contact.html')
+
 
 def feedback_view(request):
     """Handle feedback form submissions"""
@@ -130,6 +133,7 @@ def feedback_view(request):
 
     return render(request, 'feedback.html')
 
+
 def book_appointment(request):
     """Handle appointment booking"""
     if request.method == 'POST':
@@ -139,10 +143,13 @@ def book_appointment(request):
     
     return render(request, 'book_appointment.html')
 
+
 def about_view(request):
     """Display about page"""
     return render(request, 'about.html')
 
+
 def services_view(request):
     """Display services page"""
     return render(request, 'services.html')
+
