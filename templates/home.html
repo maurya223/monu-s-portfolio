@@ -932,6 +932,117 @@
     </div>
   </header>
 
+ <div id="welcomePopup"
+     style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        width: 450px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 25px;
+        padding: 35px;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        z-index: 9999;
+        opacity: 0;
+        transition: all 0.5s ease;
+        color: white;
+        font-family: 'Poppins', sans-serif;
+        border: 2px solid rgba(255,255,255,0.2);
+     ">
+
+    <!-- Close Button -->
+    <span onclick="closePopup()"
+          style="
+            position:absolute;
+            top:15px;
+            right:20px;
+            font-size:30px;
+            cursor:pointer;
+            color:white;
+          ">
+        &times;
+    </span>
+
+    <!-- Avatar -->
+    <img src="https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif"
+         alt="Welcome Avatar"
+         style="
+            width:200px;
+            height:200px;
+            border-radius:50%;
+            object-fit:cover;
+            border:5px solid rgba(255,255,255,0.3);
+            box-shadow:0 10px 25px rgba(0,0,0,0.3);
+            margin-bottom:20px;
+         ">
+
+    <h1 style="
+        margin:0;
+        font-size:32px;
+        color:#fff;
+    ">
+        👋 Welcome
+    </h1>
+
+    <p style="
+        font-size:18px;
+        line-height:1.8;
+        color:#f1f5f9;
+        margin-top:20px;
+    ">
+        Welcome to my portfolio website.<br>
+        I'm <strong>Monu Maurya</strong><br>
+        <span style="color:#ffd166;">
+            Software Engineer | Full-Stack Developer | Freelancer
+        </span>
+    </p>
+
+    <button onclick="closePopup()"
+            style="
+                background:#ffffff;
+                color:#764ba2;
+                border:none;
+                padding:14px 35px;
+                border-radius:50px;
+                cursor:pointer;
+                font-size:16px;
+                font-weight:bold;
+                margin-top:20px;
+                box-shadow:0 5px 15px rgba(0,0,0,0.2);
+            ">
+        🚀 Explore Portfolio
+    </button>
+
+</div>
+
+<script>
+window.onload = function () {
+    const popup = document.getElementById("welcomePopup");
+
+    setTimeout(() => {
+        popup.style.opacity = "1";
+        popup.style.transform = "translate(-50%, -50%) scale(1)";
+    }, 100);
+
+    // Auto-hide after 1 second
+    setTimeout(() => {
+        closePopup();
+    }, 1000);
+};
+
+function closePopup() {
+    const popup = document.getElementById("welcomePopup");
+    popup.style.opacity = "0";
+    popup.style.transform = "translate(-50%, -50%) scale(0.8)";
+
+    setTimeout(() => {
+        popup.style.display = "none";
+    }, 500);
+}
+</script>
+
   <main>
     <!-- Hero -->
     <section class="hero" id="home">
@@ -961,8 +1072,8 @@
             </ul>
           </span>
         </h1>
-        <p>I build fast, reliable web applications and automate the boring stuff with Python — from New Delhi, India. I care about clean code, clear APIs, and shipping things that actually work.</p>
-
+        <p> I build fast, reliable web applications and Python automation tools. Based in New Delhi, India, I focus on clean code, scalable architecture, and creating software that delivers real value.
+</p>
         <div class="btn-group">
           <a href="#projects" class="btn btn-primary"><i class="fa-solid fa-diagram-project"></i> View My Work</a>
           <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-paper-plane"></i> Get In Touch</a>
@@ -984,7 +1095,7 @@
 
         <div class="about-content">
           <div class="about-text reveal">
-            <p>I'm Monu Maurya, a Web & Python Developer based in New Delhi, India. I enjoy turning ideas into working products — whether that's a responsive website, a REST API, or a script that automates a tedious workflow.</p>
+            <p>Hi, I'm Monu Maurya, a Web & Python Developer based in New Delhi, India, with a passion for building modern, scalable, and user-focused web applications.</p>
             <p>My toolkit centers on Python (Django/Flask), JavaScript, and modern front-end practices, backed by a solid grasp of databases, version control, and deployment.</p>
             <p>When I'm not coding, I'm usually reading about new frameworks, contributing to small open-source tools, or refining this very portfolio.</p>
 
@@ -1013,15 +1124,15 @@
         <div class="skills-container">
           <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-python"></i></div><div class="skill-name">Python</div></div>
           <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-js"></i></div><div class="skill-name">JavaScript</div></div>
-          <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-html5"></i></div><div class="skill-name">HTML5</div></div>
-          <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-css3-alt"></i></div><div class="skill-name">CSS3</div></div>
-          <div class="skill-card reveal"><div class="skill-icon"><i class="fa-solid fa-flask"></i></div><div class="skill-name">Flask</div></div>
+          <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-html5"></i></div><div class="skill-name">Automation</div></div>
+          <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-css3-alt"></i></div><div class="skill-name">AI Engineer</div></div>
+          <div class="skill-card reveal"><div class="skill-icon"><i class="fa-solid fa-flask"></i></div><div class="skill-name">Machine Learning</div></div>
           <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-python"></i></div><div class="skill-name">Django</div></div>
           <div class="skill-card reveal"><div class="skill-icon"><i class="fa-solid fa-database"></i></div><div class="skill-name">SQL</div></div>
-          <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-git-alt"></i></div><div class="skill-name">Git</div></div>
-          <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-react"></i></div><div class="skill-name">React</div></div>
+          <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-git-alt"></i></div><div class="skill-name">Git/Github</div></div>
+          <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-react"></i></div><div class="skill-name">web Scraping</div></div>
           <div class="skill-card reveal"><div class="skill-icon"><i class="fa-solid fa-server"></i></div><div class="skill-name">REST APIs</div></div>
-          <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-docker"></i></div><div class="skill-name">Docker</div></div>
+          <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-fastapi"></i></div><div class="skill-name">Fast API</div></div>
           <div class="skill-card reveal"><div class="skill-icon"><i class="fa-brands fa-linux"></i></div><div class="skill-name">AI/Automation</div></div>
         </div>
       </div>
@@ -1038,9 +1149,9 @@
           <div class="timeline-item reveal">
             <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
             <div class="timeline-content">
-              <div class="timeline-date">2026 January-March</div>
-              <div class="timeline-title"> Python Developer</div>
-              <div class="timeline-company">Janus koncepts</div>
+              <div class="timeline-date">2026 March - </div>
+              <div class="timeline-title"> Axepert Exhibits</div>
+              <div class="timeline-company">Python Developer</div>
               <p>Architected and deployed end-to-end AI automation pipelines using Python and FastAPI for over 2,000 active users.
 Engineered large-scale web scraping and data extraction workflows using Playwright to capture critical datasets.
 Automated complex document and image processing by leveraging local LLM/VLM inference via Ollama and Qwen2.5-VL.
@@ -1051,10 +1162,10 @@ Automated complex document and image processing by leveraging local LLM/VLM infe
           <div class="timeline-item reveal">
             <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
             <div class="timeline-content">
-              <div class="timeline-date">March, 2026</div>
-              <div class="timeline-title">Axepert Exhibits</div>
-              <div class="timeline-company">Python Devloper</div>
-              <p>uary 2026 – March 2026
+              <div class="timeline-date">January - March, 2026</div>
+              <div class="timeline-title">Janus Koncepts</div>
+              <div class="timeline-company">Python Developer</div>
+              <p> March 2026</p>
 Developed scalable backend services and secure, authenticated RESTful APIs using Django and Django REST Framework.
 Optimized PostgreSQL database schemas, indexing, and complex queries to significantly reduce API response latency.
 Utilized Git and Agile methodologies to collaborate on feature deployment within continuous integration pipelines.
@@ -1089,7 +1200,7 @@ Programmed targeted Python automation scripts to eliminate internal operational 
           <div class="project-card reveal">
             <div class="project-image"><i class="fa-solid fa-cart-shopping"></i></div>
             <div class="project-info">
-              <h3 class="project-title">E-Commerce Platform</h3>
+              <h3 class="project-title">AI Resume Detection and Upskilling Job Recommendation</h3>
               <p class="project-description">A full-featured online store with product catalog, cart, and checkout, built with Django and PostgreSQL.</p>
               <div class="project-tags">
                 <span class="project-tag">Django</span>
@@ -1097,8 +1208,8 @@ Programmed targeted Python automation scripts to eliminate internal operational 
                 <span class="project-tag">JavaScript</span>
               </div>
               <div class="project-links">
-                <a href="#"><i class="fa-brands fa-github"></i> Code</a>
-                <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+                <a href="https://github.com/maurya223/Ai_resume_dection_upskilling_job-recomendation"><i class="fa-brands fa-github"></i> Code</a>
+                <a href="https://github.com/maurya223/Ai_resume_dection_upskilling_job-recomendation"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
               </div>
             </div>
           </div>
@@ -1106,15 +1217,15 @@ Programmed targeted Python automation scripts to eliminate internal operational 
           <div class="project-card reveal">
             <div class="project-image"><i class="fa-solid fa-robot"></i></div>
             <div class="project-info">
-              <h3 class="project-title">Task Automation Toolkit</h3>
+              <h3 class="project-title">Travels buddy</h3>
               <p class="project-description">A set of Python scripts that automate file organization, report generation, and data cleanup.</p>
               <div class="project-tags">
-                <span class="project-tag">Python</span>
-                <span class="project-tag">Pandas</span>
-                <span class="project-tag">CLI</span>
+                <span class="project-tag">Django</span>
+                <span class="project-tag">API</span>
+                <span class="project-tag">Automation</span>
               </div>
               <div class="project-links">
-                <a href="#"><i class="fa-brands fa-github"></i> Code</a>
+                <a href="https://github.com/maurya223/Travels-buddy" target="_blank"><i class="fa-brands fa-github"></i> Code</a>
               </div>
             </div>
           </div>
@@ -1122,16 +1233,16 @@ Programmed targeted Python automation scripts to eliminate internal operational 
           <div class="project-card reveal">
             <div class="project-image"><i class="fa-solid fa-chart-line"></i></div>
             <div class="project-info">
-              <h3 class="project-title">Analytics Dashboard</h3>
+              <h3 class="project-title">AI Assistant</h3>
               <p class="project-description">A Flask-powered dashboard that visualizes API data in real time with interactive charts.</p>
               <div class="project-tags">
-                <span class="project-tag">Flask</span>
-                <span class="project-tag">REST API</span>
-                <span class="project-tag">Chart.js</span>
+                <span class="project-tag">Frontend</span>
+                <span class="project-tag">Backend</span>
+                <span class="project-tag">AI</span>
               </div>
               <div class="project-links">
-                <a href="#"><i class="fa-brands fa-github"></i> Code</a>
-                <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+                <a href="https://github.com/maurya223/mobiai"><i class="fa-brands fa-github"></i> Code</a>
+                <a href="https://github.com/maurya223/mobiai" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
               </div>
             </div>
           </div>
@@ -1199,7 +1310,7 @@ Programmed targeted Python automation scripts to eliminate internal operational 
 
             <div class="contact-item">
               <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
-              <div><strong>Email</strong><a href="mailto:monu.maurya@example.com">monu.maurya@example.com</a></div>
+              <div><strong>Email</strong><a href="mailto:maurya892096@gmail.com">maurya892096@gmail.com</a></div>
             </div>
 
             <div class="contact-item">
@@ -1213,9 +1324,16 @@ Programmed targeted Python automation scripts to eliminate internal operational 
             </div>
 
             <div class="social-links">
-              <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-              <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-              <a href="#" aria-label="Twitter / X"><i class="fa-brands fa-x-twitter"></i></a>
+              <a href="https://github.com/maurya223" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+              <a href="https://www.linkedin.com/in/monumaurya/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+             <a href="mailto:maurya892096@gmail.com" aria-label="Email">
+    <i class="fa-solid fa-envelope"></i>
+</a>
+              <a href="https://leetcode.com/u/monumaurya12/" target="_blank" aria-label="LeetCode">
+    <i class="fa-solid fa-code"></i>
+</a>
+
+
             </div>
           </div>
 
@@ -1254,9 +1372,39 @@ Programmed targeted Python automation scripts to eliminate internal operational 
 
 
   <footer>
-    <div class="container">
-      <p>&copy; <span id="year"></span> Monu Maurya. Built with HTML, CSS & JavaScript.</p>
-    </div>
+    
+        &copy; <span id="year"></span> Monu Maurya. All rights reserved.
+        <br><br>
+
+        <strong>Software Engineer | Full-Stack Developer | Freelancer</strong>
+        <br><br>
+
+        Building scalable web applications, AI-powered solutions, and modern digital experiences.
+        Available for full-time opportunities, freelance projects, and collaborations.
+        <br><br>
+
+        📧 <a href="mailto:maurya892096@gmail.com" style="color:#60a5fa; text-decoration:none;">
+            maurya892096@gmail.com
+        </a>
+        <br>
+
+        💼 <a href="https://www.linkedin.com/in/monumaurya/" target="_blank" style="color:#60a5fa; text-decoration:none;">
+            LinkedIn
+        </a>
+        &nbsp;|&nbsp;
+
+        🐙 <a href="https://github.com/maurya223" target="_blank" style="color:#60a5fa; text-decoration:none;">
+            GitHub
+        </a>
+        <br><br>
+
+        <em>Let's build something amazing together.</em>
+
+</div>
+
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
   </footer>
 
   <script>
