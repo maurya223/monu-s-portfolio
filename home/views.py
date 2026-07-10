@@ -1,147 +1,78 @@
 from django.shortcuts import render, redirect
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpResponse
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
-from django.template.loader import get_template
-from .models import Contact, Feedback, Testimonial
+
+from .models import Contact
 
 
 def home(request):
-    if request.method == 'POST':
-        form_type = request.POST.get('form_type')
+    """Home page + contact form submission."""
+    if request.method == 'POST' and request.POST.get('form_type') == 'contact':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
 
-        if form_type == 'contact':
-            name = request.POST.get('name')
-            email = request.POST.get('email')
-            subject = request.POST.get('subject')
-            message = request.POST.get('message')
+        if name and email and subject and message:
+            Contact.objects.create(
+                name=name,
+                email=email,
+                subject=subject,
+                message=message,
+            )
 
-            if name and email and subject and message:
-                contact = Contact(
-                    name=name,
-                    email=email,
-                    subject=subject,
-                    message=message
+            # Send email
+            try:
+                send_mail(
+                    subject=f"New Contact Message: {subject}",
+                    message=f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}",
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=['mauryaharshit376@gmail.com'],
+                    fail_silently=False,
                 )
-                contact.save()
+                messages.success(request, 'Your message has been sent successfully')
+            except Exception as e:
+                messages.warning(request, f'Message saved, but email failed to send: {e}')
 
-                # Send email
-                try:
-                    send_mail(
-                        subject=f"New Contact Message: {subject}",
-                        message=f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}",
-                        from_email=settings.EMAIL_HOST_USER,
-                        recipient_list=['maurya892096@gmail.com'],
-                        fail_silently=False,
-                    )
-                    messages.success(request, 'Your message has been sent successfully')
-                except Exception as e:
-                    messages.warning(request, f'Message saved, but email failed to send: {e}')
+            return redirect('home')
 
-                return redirect('home')
-            else:
-                messages.error(request, 'All contact fields are required')
+        messages.error(request, 'All contact fields are required')
+        return redirect('home')
 
-        elif form_type == 'feedback':
-            name = request.POST.get('name')
-            email = request.POST.get('email')
-            message = request.POST.get('message')
-
-            if name and email and message:
-                feedback = Feedback(
-                    name=name,
-                    email=email,
-                    message=message
-                )
-                feedback.save()
-
-                messages.success(request, 'Your feedback has been submitted successfully')
-                return redirect('home')
-            else:
-                messages.error(request, 'All feedback fields are required')
-        
-        elif form_type == 'testimonial':
-            name = request.POST.get('name')
-            position = request.POST.get('position', '')
-            company = request.POST.get('company', '')
-            rating = request.POST.get('rating', 5)
-            message = request.POST.get('message')
-
-            if name and message:
-                testimonial = Testimonial(
-                    name=name,
-                    position=position,
-                    company=company,
-                    rating=int(rating),
-                    message=message
-                )
-                testimonial.save()
-                messages.success(request, 'Thank you for your testimonial! It will be displayed after approval.')
-                return redirect('home')
-            else:
-                messages.error(request, 'Name and message are required for testimonial')
-
-    # Get approved testimonials to display
-    testimonials = Testimonial.objects.filter(is_approved=True).order_by('-created_at')[:10]
-    
-    return render(request, 'home.html', {'testimonials': testimonials})
+    return render(request, 'home.html')
 
 
-def contact_view(request):
+def contact_form(request):
+    """Legacy endpoint; keeps the existing URL working if used elsewhere."""
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
 
-        full_message = f"Message from {name} ({email}):\n\n{message}"
-
-        # Send email
-        send_mail(
-            subject,
-            full_message,
-            email,
-            ["mauryaharshit376@gmail.com"],
-            fail_silently=False,
-        )
-
-        return HttpResponse('Thank you for your message!')
-
-    # For GET request, render the form
-    return render(request, 'contact.html')
-
-
-def feedback_view(request):
-    """Handle feedback form submissions"""
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        message = request.POST.get('message')
-
-        if name and email and message:
-            feedback = Feedback(
+        if name and email and subject and message:
+            Contact.objects.create(
                 name=name,
                 email=email,
-                message=message
+                subject=subject,
+                message=message,
             )
-            feedback.save()
-            messages.success(request, 'Your feedback has been submitted successfully')
-            return redirect('feedback')
-        else:
-            messages.error(request, 'All fields are required')
 
-    return render(request, 'feedback.html')
+            send_mail(
+                subject,
+                f"Message from {name} ({email}):\n\n{message}",
+                email,
+                ["mauryaharshit376@gmail.com"],
+                fail_silently=False,
+            )
 
+            return HttpResponse('Thank you for your message!')
 
-def book_appointment(request):
-    """Handle appointment booking"""
-    if request.method == 'POST':
-        # Add appointment booking logic here
-        messages.success(request, 'Appointment booked successfully!')
-        return redirect('book-appointment')
-    
-    return render(request, 'book_appointment.html')
+        return HttpResponse('All fields are required', status=400)
+
+    return render(request, 'contact.html')
 
 
 def about_view(request):
